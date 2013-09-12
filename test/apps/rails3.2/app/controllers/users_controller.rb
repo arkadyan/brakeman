@@ -88,4 +88,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @query = params[:query]
   end
+
+  def redirect_using_scrubbed_param
+    @user = User.find(params[:id])
+    redirect_to @user.style_url(:style => params[:style]) #Don't warn
+  end
 end

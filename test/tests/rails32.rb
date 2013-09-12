@@ -219,15 +219,15 @@ class Rails32Tests < Test::Unit::TestCase
       :message => /^Potentially\ dangerous\ attribute\ admin/,
       :confidence => 0, #HIGH
       :file => /user\.rb/
-  end 
+  end
 
   def test_model_attr_accessible_account_id
     assert_warning :type => :model,
       :warning_type => "Mass Assignment",
       :message => /^Potentially\ dangerous\ attribute\ account_id/,
-      :confidence => 0, 
+      :confidence => 0,
       :file => /user\.rb/
-  end 
+  end
 
   def test_model_attr_accessible_account_banned
     assert_warning :type => :model,
@@ -235,7 +235,7 @@ class Rails32Tests < Test::Unit::TestCase
       :message => /^Potentially\ dangerous\ attribute\ banned/,
       :confidence => 1, #MED
       :file => /account\.rb/
-  end 
+  end
 
   def test_model_attr_accessible_status_id
     assert_warning :type => :model,
@@ -243,14 +243,23 @@ class Rails32Tests < Test::Unit::TestCase
       :message => /^Potentially\ dangerous\ attribute\ status_id/,
       :confidence => 2, #LOW
       :file => /user\.rb/
-  end 
+  end
 
   def test_model_attr_accessible_plan_id
     assert_warning :type => :model,
       :warning_type => "Mass Assignment",
       :message => /^Potentially\ dangerous\ attribute\ plan_id/,
-      :confidence => 2, 
+      :confidence => 2,
       :file => /account\.rb/
-  end 
+  end
+
+  def test_redirect_using_scrubbed_param
+    assert_no_warning :type => :warning,
+      :warning_type => "Redirect",
+      :line => 160,
+      :message => /^Possible\ unprotected\ redirect/,
+      :confidence => 0,
+      :file => /users_controller\.rb/
+  end
 
 end
